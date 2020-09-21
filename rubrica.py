@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# V. 1.0
+# V. 1.1
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -327,7 +327,9 @@ class App:
                             dialog.destroy()
                             
                     else:
-                        self.data_filter[path][idx] = text.replace("", " ").replace(";;", ";").replace("\n", " ")
+                        if text.strip() == "":
+                            text = " "
+                        self.data_filter[path][idx] = text.replace(";;", ";").replace("\n", " ")
                 
                     # the database has been modified
                     self.is_modified = 1
@@ -364,6 +366,8 @@ class App:
             self.store.insert(0,row=("NEW RECORD", " ", " ", " ", " ", " "))
             # to top
             self.tree.scroll_to_cell(0, None)
+            # set the variable
+            self.is_modified = 1
     
     
     # delete a row
