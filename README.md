@@ -34,6 +34,10 @@ Only three option to change manually:
 - height of the program
 - use (1) or not use (0) the headbar.
 
+Known bug:
+- do not close the program from the window manager or the headbar, use the button in the program
+or this program disappears if "Cancel" is pressed.
+
 Screenshots:
 without headbar
 ![My image](https://github.com/frank038/Rubrica/blob/master/Image1.png)
