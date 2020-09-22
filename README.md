@@ -1,7 +1,7 @@
 # Rubrica
-A simple programs to collect contacts. Version 1.1
+A simple programs to collect contacts. Version 1.2
 
-rubrica_20200921_b.tar.gz: MD5SUM 90830d1921a9a1ea0c6642964bf38f33
+rubrica_20200922.tar.gz: MD5SUM e85984e8fe14f44fa9fd49c504a95941
 
 Each field can be filled by clicking again into the selected row.
 The buttons from the left:
@@ -13,7 +13,7 @@ The buttons from the left:
 - import a vcf file (only selected fields will be parsed)
 - exit the program (a dialog should appear if the database has been changed).
 
-The button on the left
+The buttons on the left
 Each button filter the whole list using the first character of the first field of each row.
 The first field, Surname/Co., is mandatory. If empty, an arbitrary character will be used.
 The button with label "@" reset the filter and all the database will be shown.
@@ -33,6 +33,11 @@ Only three option to change manually:
 - width of the program
 - height of the program
 - use (1) or not use (0) the headbar.
+
+Right mouse button
+Copy to clipboard the content of the selected field.
+This feature can be disabled by changing the line 59 of the main program this way:
+USE_CLIPBOARD=0
 
 Known bug:
 - do not close the program from the window manager or the headbar, use the button in the program
