@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-# V. 1.1
+# V. 1.2
 
 import gi
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, Gio, Pango
+from gi.repository import Gtk, Gio, Pango, Gdk
 from gi.repository import GdkPixbuf
 from os.path import expanduser
 import sys
@@ -56,6 +56,7 @@ HOME=expanduser("~")
 WWIDTH=800
 WHEIGHT=600
 USE_HEADBAR=0
+USE_CLIPBOARD=1
 
 # get the window size from the config file
 with open("rubrica.cfg", "r") as fconf:
@@ -151,8 +152,9 @@ class App:
         close_btn = Gtk.Image.new_from_pixbuf(pixbuf)
         self.close_button = Gtk.Button(image=close_btn)
         self.close_button.set_tooltip_text("Exit")
-        self.close_button.connect("clicked", self.exit_program)#Gtk.main_quit)
-        self.button_box.add(self.close_button)
+        self.close_button.connect("clicked", self.exit_program)
+        #self.button_box.add(self.close_button)
+        self.button_box.pack_end(self.close_button, False, False, 0)
         
         ### horizontal box for buttons and data
         self.hbox = Gtk.Box(orientation=0, spacing=0)
@@ -356,8 +358,25 @@ class App:
                     self.export_button.set_sensitive(True)
                 # the selected row
                 self.selected_row = path
-            
-
+        
+        # copy the content of the selected cell to clipboard
+        if USE_CLIPBOARD:
+            if event.button == 3:
+                pthinfo = self.tree.get_path_at_pos(event.x, event.y)
+                if pthinfo != None:
+                    path,col,cellx,celly = pthinfo
+                    num_col = list_data.index(col.get_title())
+                    # selected cell content
+                    cell_content = self.store[path][num_col]
+                    #
+                    # clipboard
+                    self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+                    self.clipboard.set_text(cell_content, -1)
+                    # dialog
+                    dialog = DialogBox(self.window, cell_content+"\ncopied to clipboard.")
+                    dialog.run()
+                    dialog.destroy()  
+    
     # add a new empty row
     def on_add_record_button(self, w):
         # only in the first tab
