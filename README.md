@@ -1,7 +1,7 @@
 # Rubrica
-A simple programs to collect contacts. Version 1.2
+A simple programs to collect contacts. Version 1.3
 
-rubrica_20200922.tar.gz: MD5SUM e85984e8fe14f44fa9fd49c504a95941
+rubrica_20200923.tar.gz: MD5SUM c6a5ae58a65eea7f2ca0204ca9542039
 
 Each field can be filled by clicking again into the selected row.
 The buttons from the left:
@@ -46,6 +46,7 @@ Right mouse button.
 Copy to clipboard the content of the selected field.
 This feature can be disabled by changing the line 59 of the main program this way:
 USE_CLIPBOARD=0
+This feature can be used when no filter is applied.
 
 
 Known bug:
