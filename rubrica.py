@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# V. 1.3
+# V. 1.4
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -83,7 +83,7 @@ class App:
         #### create main window
         self.window = Gtk.Window()
         # set title, size, position
-        self.window.set_title("Contacts")
+        self.window.set_title("Rubrica")
         self.window.set_default_size(WWIDTH, WHEIGHT)
         pixbuf = Gtk.IconTheme.get_default().load_icon("address-book-new", 24, 0)
         self.window.set_icon(pixbuf)
@@ -91,7 +91,7 @@ class App:
         self.window.connect('delete-event', self.exit_program)
         ## for those wanting the headerbar
         if USE_HEADBAR:
-            header = Gtk.HeaderBar(title="Contacts")
+            header = Gtk.HeaderBar(title="Rubrica")
             header.props.show_close_button = True
             self.window.set_titlebar(header)
         
@@ -360,24 +360,26 @@ class App:
                 self.selected_row = path
         
         # copy the content of the selected cell to clipboard
-        # only in the first tab
-        if self.widget_label == '@':
-            if USE_CLIPBOARD:
-                if event.button == 3:
-                    pthinfo = self.tree.get_path_at_pos(event.x, event.y)
-                    if pthinfo != None:
-                        path,col,cellx,celly = pthinfo
-                        num_col = list_data.index(col.get_title())
-                        # selected cell content
+        if USE_CLIPBOARD:
+            if event.button == 3:
+                pthinfo = self.tree.get_path_at_pos(event.x, event.y)
+                if pthinfo != None:
+                    path,col,cellx,celly = pthinfo
+                    num_col = list_data.index(col.get_title())
+                    
+                    if self.widget_label == '@':
                         cell_content = self.store[path][num_col]
-                        #
-                        # clipboard
-                        self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
-                        self.clipboard.set_text(cell_content, -1)
-                        # dialog
-                        dialog = DialogBox(self.window, cell_content+"\ncopied to clipboard.")
-                        dialog.run()
-                        dialog.destroy()
+                    else:
+                        fmodel, fiter = tree_view.get_selection().get_selected()
+                        cell_content = fmodel[path[0]][num_col]
+                    
+                    # clipboard
+                    self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+                    self.clipboard.set_text(cell_content, -1)
+                    # dialog
+                    dialog = DialogBox(self.window, cell_content+"\ncopied to clipboard.")
+                    dialog.run()
+                    dialog.destroy()
     
     # add a new empty row
     def on_add_record_button(self, w):
