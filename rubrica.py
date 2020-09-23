@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# V. 1.2
+# V. 1.3
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -360,22 +360,24 @@ class App:
                 self.selected_row = path
         
         # copy the content of the selected cell to clipboard
-        if USE_CLIPBOARD:
-            if event.button == 3:
-                pthinfo = self.tree.get_path_at_pos(event.x, event.y)
-                if pthinfo != None:
-                    path,col,cellx,celly = pthinfo
-                    num_col = list_data.index(col.get_title())
-                    # selected cell content
-                    cell_content = self.store[path][num_col]
-                    #
-                    # clipboard
-                    self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
-                    self.clipboard.set_text(cell_content, -1)
-                    # dialog
-                    dialog = DialogBox(self.window, cell_content+"\ncopied to clipboard.")
-                    dialog.run()
-                    dialog.destroy()  
+        # only in the first tab
+        if self.widget_label == '@':
+            if USE_CLIPBOARD:
+                if event.button == 3:
+                    pthinfo = self.tree.get_path_at_pos(event.x, event.y)
+                    if pthinfo != None:
+                        path,col,cellx,celly = pthinfo
+                        num_col = list_data.index(col.get_title())
+                        # selected cell content
+                        cell_content = self.store[path][num_col]
+                        #
+                        # clipboard
+                        self.clipboard = Gtk.Clipboard.get(Gdk.SELECTION_CLIPBOARD)
+                        self.clipboard.set_text(cell_content, -1)
+                        # dialog
+                        dialog = DialogBox(self.window, cell_content+"\ncopied to clipboard.")
+                        dialog.run()
+                        dialog.destroy()
     
     # add a new empty row
     def on_add_record_button(self, w):
