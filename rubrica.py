@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# V. 1.4
+# V. 1.5
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -238,6 +238,7 @@ class App:
                 sys.exit()
             elif response == Gtk.ResponseType.CANCEL:
                 dialog.destroy()
+                return True
         else:
             Gtk.main_quit()
             sys.exit()
@@ -380,7 +381,7 @@ class App:
                     dialog = DialogBox(self.window, cell_content+"\ncopied to clipboard.")
                     dialog.run()
                     dialog.destroy()
-    
+
     # add a new empty row
     def on_add_record_button(self, w):
         # only in the first tab
