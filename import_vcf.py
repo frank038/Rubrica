@@ -69,7 +69,7 @@ def import_vcf(file):
                     # url
                     elif line.strip()[0:3] == "URL":
                         temp_a = line.strip().split(":")
-                        temp_b = temp_a[1]
+                        temp_b = temp_a[1]+":"+temp_a[2]
                         url = temp_b
                         temp_record_url += url+" "
                     # note
