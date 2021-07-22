@@ -292,7 +292,7 @@ class App:
     # 
     def text_edited(self, widget, path, text):
         # remove ";" and ":" from the text
-        text = text.replace(";", "*").replace(":", "*")
+        text = text.replace(";", "*") # .replace(":", "*")
         
         idx = widget.colnr
         # no empty text in the first column 
