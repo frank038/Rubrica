@@ -1,7 +1,7 @@
 # Rubrica
-A simple programs to collect contacts. Version 1.6
+A simple programs to collect contacts. Version 1.7
 
-Rubrica_20210722.tar: MD5SUM 1fa8cc3f9d63c12d6f6f49e45f371eb5
+Rubrica_20210722b.tar: MD5SUM a9a5f3c07a8e0723b1997b1e93ae6c9f
 
 Each field can be filled by clicking again into the selected row.
 The buttons from the left:
