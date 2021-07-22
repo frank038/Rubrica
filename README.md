@@ -28,8 +28,8 @@ This program parses only the following fields:
 - surname
 - name
 - telephone (even more than one field while importing)
-- email (even more than one field while importing)
-- url (even more than one field while importing)
+- email (only the first email while importing)
+- url (only the first url while importing)
 - note.
 
 
