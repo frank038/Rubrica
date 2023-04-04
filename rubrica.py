@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# V. 1.8
+# V. 1.9
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -46,6 +46,7 @@ import save_rubrica as SR
 import export_item as EI
 
 import export_database as ED
+import export_database2 as ED2
 
 import import_vcf as IV
 
@@ -137,9 +138,16 @@ class App:
         pixbuf = Gtk.IconTheme.get_default().load_icon("go-up", 48, 0)
         exp_btn = Gtk.Image.new_from_pixbuf(pixbuf)
         self.exportall_button = Gtk.Button(image=exp_btn)
-        self.exportall_button.set_tooltip_text("Export the database")
+        self.exportall_button.set_tooltip_text("Export the database as vcf")
         self.exportall_button.connect("clicked", self.on_exportall_button)
         self.button_box.add(self.exportall_button)
+        ## export the database 2 button - csv
+        pixbuf = Gtk.IconTheme.get_default().load_icon("go-up", 48, 0)
+        exp_btn2 = Gtk.Image.new_from_pixbuf(pixbuf)
+        self.exportall_button2 = Gtk.Button(image=exp_btn2)
+        self.exportall_button2.set_tooltip_text("Export the database as csv")
+        self.exportall_button2.connect("clicked", self.on_exportall_button2)
+        self.button_box.add(self.exportall_button2)
         ## import a vcf card button
         pixbuf = Gtk.IconTheme.get_default().load_icon("go-down", 48, 0)
         imp_btn = Gtk.Image.new_from_pixbuf(pixbuf)
@@ -482,6 +490,26 @@ class App:
             dialod.destroy()
         self.temp_list = []
     
+    # export the database 2 - cvs
+    def on_exportall_button2(self, w):
+        #
+        ret = self.select_folder()
+        if not ret:
+            return
+        #
+        self.temp_list = []
+        self.store.foreach(self.for_each, None)
+        
+        all_ret = ED2.export_all(self.temp_list, ret)
+        if all_ret == 1:
+            dialog = DialogBox(self.window, "Done.")
+            dialog.run()
+            dialog.destroy()
+        elif all_ret == 2:
+            dialog = DialogBox(self.window, "Something went wrong.")
+            dialog.run()
+            dialog.destroy()
+        self.temp_list = []
     
     # import a vcf file
     def on_import_button(self, w):
