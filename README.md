@@ -1,7 +1,6 @@
 # Rubrica
-A simple programs to collect contacts. Version 1.8
+A simple programs to collect contacts. Version 1.9
 
-Rubrica_20210722c.tar: MD5SUM 7353f4ab31d3e626050aa3035c831a5b
 
 Each field can be filled by clicking again into the selected row.
 The buttons from the left:
@@ -9,7 +8,8 @@ The buttons from the left:
 - delete the selected record (a confirmation dialog should appear)
 - save the database (into a plain text in the same folder of the program)
 - export the selected item (into a vcf file)
-- export the whole database (into a single vcf file)
+- export the whole database into a single vcf file
+- export the whole database into a single csv file
 - import a vcf file (only selected fields will be parsed)
 - exit the program (a dialog should appear if the database has been changed).
 
